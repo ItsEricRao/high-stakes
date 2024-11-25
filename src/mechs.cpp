@@ -19,7 +19,7 @@ void manual_intake() {
 }
 
 void manual_hang() {
-    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && arm.get_position() < 1300) {
+    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && arm.get_position() < 1750) {
         arm.move_velocity(50);
     }
     else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2) && arm.get_position() > 0) {
@@ -32,7 +32,7 @@ void manual_hang() {
 
 void hang_macro() {
     if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
-        arm.move_absolute(360, 100);
+        arm.move_absolute(400, 100);
         pros::delay(1000);
     }
 }
