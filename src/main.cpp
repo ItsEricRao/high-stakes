@@ -69,7 +69,8 @@ lemlib::Chassis chassis(drivetrain, // drivetrain settings
 						sensors
 );
 
-ASSET(awpa_txt);
+ASSET(a1_txt);
+ASSET(a2_txt);
 
 void test() {}
 void auton() {
@@ -133,8 +134,17 @@ void competition_initialize() {}
  */
 void autonomous() {
 	// selector.run_auton();
-    chassis.setPose(0, 0, 0);
-    chassis.follow(awpa_txt, 15, 2000);
+    arm.set_zero_position(310);
+    pros::delay(100);
+    arm.move_absolute(1750, 100);
+    pros::delay(1000);
+    chassis.setPose(-60.144, -9.329, 81.81);
+    chassis.follow(a1_txt, 30, 500, false);
+    pros::delay(1000);
+    auto_lock();
+    pros::delay(500);
+    chassis.setPose(-24.177, -24.283, 78.562);
+    chassis.follow(a2_txt, 30, 500);
 }
 
 /**

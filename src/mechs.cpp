@@ -49,3 +49,16 @@ void lock() {
         pros::delay(350);
     }
 }
+
+void auto_lock() {
+    if (pneu_stat % 2 == 0) {
+        pneu.set_value(true);
+        pneu_stat++;
+        pros::delay(350);
+    }
+    else if (pneu_stat % 2 != 0) {
+        pneu.set_value(false);
+        pneu_stat++;
+        pros::delay(350);
+    }
+}

@@ -1,0 +1,31 @@
+-60.144, -9.329, 77.458
+-59.952, -11.316, 76.196
+-59.371, -13.226, 76.404
+-58.424, -14.984, 78.963
+-57.177, -16.543, 82.753
+-55.706, -17.896, 85.352
+-54.075, -19.051, 88.815
+-52.333, -20.033, 90.718
+-50.516, -20.867, 90.573
+-48.646, -21.574, 87.725
+-46.738, -22.173, 84.78
+-44.802, -22.672, 81.73
+-42.846, -23.09, 78.561
+-40.876, -23.436, 75.259
+-38.896, -23.714, 71.805
+-36.908, -23.935, 68.176
+-34.916, -24.106, 64.342
+-32.919, -24.224, 60.266
+-30.921, -24.3, 55.892
+-28.921, -24.337, 51.147
+-26.921, -24.338, 45.913
+-24.921, -24.304, 40
+-24.177, -24.283, 0
+-24.177, -24.283, 0
+-4.185, -23.725, 0
+endData
+127
+100
+200
+-60.144, -9.329, -60.144, -18.657, -48.218, -25.04, -24.177, -24.283
+#PATH.JERRYIO-DATA {"appVersion":"0.8.3","format":"LemLib v0.5","gc":{"robotWidth":38.5,"robotHeight":40.5,"robotIsHolonomic":true,"showRobot":true,"uol":1,"pointDensity":5.08,"controlMagnetDistance":1.968503937007874,"fieldImage":{"displayName":"V5RC 2025 - High Stakes","signature":"V5RC 2025 - High Stakes","origin":{"__type":"built-in"}},"coordinateSystem":"Path-Based Strict Coordinates"},"paths":[{"segments":[{"controls":[{"uid":"jXgbTslxpy","x":-152.7659230689044,"y":-23.694777441884693,"lock":false,"visible":true,"heading":315,"__type":"end-point"},{"uid":"pqpGzW9roS","x":-152.7659230689044,"y":-47.38955488376939,"lock":false,"visible":true,"__type":"control"},{"uid":"meTSZFfa85","x":-122.47430418013136,"y":-63.60278327947459,"lock":false,"visible":true,"__type":"control"},{"uid":"J8YHRwz9SH","x":-61.41024705514439,"y":-61.67950588971123,"lock":false,"visible":true,"heading":270,"__type":"end-point"}],"speedProfiles":[],"lookaheadKeyframes":[],"uid":"IJjykCI5wc"}],"pc":{"speedLimit":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":127,"label":"127"},"step":1,"from":40,"to":100},"bentRateApplicableRange":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":1,"label":"1"},"step":0.001,"from":0,"to":0.1},"maxDecelerationRate":127},"name":"Path","uid":"4j0sprtBSF","lock":false,"visible":true}]}
