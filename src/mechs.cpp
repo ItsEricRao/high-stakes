@@ -62,3 +62,14 @@ void auto_lock() {
         pros::delay(350);
     }
 }
+
+void auto_intake(bool flag) {
+    if (flag == true) {
+        intake.move(-127);
+        track.move(-127);
+    }
+    else if (flag == false) {
+        intake.move(127);
+        track.move(127);
+    }
+}

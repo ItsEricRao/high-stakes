@@ -1,4 +1,3 @@
-#include <iostream>
 #include "main.h"
 #include "robodash/api.h"
 #include "lemlib/api.hpp"
@@ -22,7 +21,7 @@ pros::ADIDigitalOut pneu('B');
 // drivetrain settings
 lemlib::Drivetrain drivetrain(&left_motors, // left motor group
                               &right_motors, // right motor group
-                              10, // 10 inch track width
+                              12, // 12 inch track width
                               lemlib::Omniwheel::NEW_4, // using new 4" omnis
                               360, // drivetrain rpm is 360
                               2 // horizontal drift is 2 (for now)
@@ -42,23 +41,23 @@ pros::Imu imu(5);
 lemlib::ControllerSettings lateral_controller(12, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               5, // derivative gain (kD)
-                                              0, // anti windup
-                                              0, // small error range, in inches
-                                              0, // small error range timeout, in milliseconds
-                                              0, // large error range, in inches
-                                              0, // large error range timeout, in milliseconds
-                                              0 // maximum acceleration (slew)
+                                              3, // anti windup
+                                              1, // small error range, in inches
+                                              100, // small error range timeout, in milliseconds
+                                              3, // large error range, in inches
+                                              500, // large error range timeout, in milliseconds
+                                              20 // maximum acceleration (slew)
 );
 // angular PID controller
 
 lemlib::ControllerSettings angular_controller(3, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               10, // derivative gain (kD)
-                                              0, // anti windup
-                                              0, // small error range, in inches
-                                              0, // small error range timeout, in milliseconds
-                                              0, // large error range, in inches
-                                              0, // large error range timeout, in milliseconds
+                                              3, // anti windup
+                                              1, // small error range, in inches
+                                              100, // small error range timeout, in milliseconds
+                                              3, // large error range, in inches
+                                              500, // large error range timeout, in milliseconds
                                               0 // maximum acceleration (slew)
 );
 
@@ -97,10 +96,21 @@ void display_logo() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+    imu.reset();
+    chassis.calibrate();
+    chassis.setPose(0,0,0);
 	console.println("    -=Lianyungang Senior High School=-");
 	console.println("\n -Version v1.0- \n                        coded by ericrao.");
 	display_logo();
     arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    pros::Task screenTask([&]() {
+        while (true) {
+            auto pose = chassis.getPose();
+            printf("X: %f, Y: %f, Theta: %f, IMU: %f\n", pose.x, pose.y, pose.theta, imu.get_rotation());
+            // delay to save resources
+            pros::delay(50);
+        }
+    });
 }
 
 /**
@@ -134,17 +144,24 @@ void competition_initialize() {}
  */
 void autonomous() {
 	// selector.run_auton();
+    pros::delay(500);
     arm.set_zero_position(310);
     pros::delay(100);
     arm.move_absolute(1750, 100);
     pros::delay(1000);
     chassis.setPose(-60.144, -9.329, 81.81);
     chassis.follow(a1_txt, 30, 500, false);
+    pros::delay(500);
+    arm.move_absolute(0, 100);
     pros::delay(1000);
     auto_lock();
+    // chassis.setPose(-24.177, -24.283, 84.782);
+    // chassis.follow(a2_txt, 30, 500, false);
+    chassis.setPose(0, 0, 0);
     pros::delay(500);
-    chassis.setPose(-24.177, -24.283, 78.562);
-    chassis.follow(a2_txt, 30, 500);
+    auto_intake(false);
+    chassis.moveToPose(-30, -15, -90, 2000, {.minSpeed = 40});
+    
 }
 
 /**
@@ -178,6 +195,5 @@ void opcontrol() {
         manual_hang();
         hang_macro();
         lock();
-        std::cout << "arm: "<< arm.get_position() << std::endl;
     }
 }
