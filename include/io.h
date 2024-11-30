@@ -8,5 +8,6 @@ extern pros::Motor track;
 extern pros::Motor arm;
 extern pros::Controller controller;
 extern pros::ADIDigitalOut pneu;
+extern pros::ADIDigitalOut pneu_intake;
 
 extern rd::Console console;

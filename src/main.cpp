@@ -16,6 +16,7 @@ pros::MotorGroup right_motors({20, 19, -18}, pros::MotorGearset::blue);
 pros::Motor intake(-17, pros::MotorGearset::green);
 pros::Motor track(-15, pros::MotorGearset::green);
 pros::Motor arm(1, pros::MotorGearset::red);
+pros::ADIDigitalOut pneu_intake('A');
 pros::ADIDigitalOut pneu('B');
 
 // drivetrain settings
@@ -151,7 +152,7 @@ void autonomous() {
     pros::delay(1000);
     chassis.setPose(-60.144, -9.329, 81.81);
     chassis.follow(a1_txt, 30, 500, false);
-    pros::delay(500);
+    pros::delay(1000);
     arm.move_absolute(0, 100);
     pros::delay(1000);
     auto_lock();
@@ -160,8 +161,7 @@ void autonomous() {
     chassis.setPose(0, 0, 0);
     pros::delay(500);
     auto_intake(false);
-    chassis.moveToPose(-30, -15, -90, 2000, {.minSpeed = 40});
-    
+    chassis.moveToPose(-30, -15, -90, 2000, {.minSpeed = 60});
 }
 
 /**
@@ -195,5 +195,6 @@ void opcontrol() {
         manual_hang();
         hang_macro();
         lock();
+        intake_lock();
     }
 }

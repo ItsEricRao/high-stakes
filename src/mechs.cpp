@@ -2,6 +2,7 @@
 #include "func.h"
 #include "io.h"
 int pneu_stat = 0;
+int intake_stat = 0;
 
 void manual_intake() {
     if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
@@ -33,7 +34,7 @@ void manual_hang() {
 void hang_macro() {
     if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
         arm.move_absolute(400, 100);
-        pros::delay(1000);
+        pros::delay(500);
     }
 }
 
@@ -46,6 +47,19 @@ void lock() {
     else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT) && pneu_stat % 2 != 0){
         pneu.set_value(false);
         pneu_stat++;
+        pros::delay(350);
+    }
+}
+
+void intake_lock() {
+    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT) && intake_stat % 2 == 0) {
+        pneu_intake.set_value(true);
+        intake_stat++;
+        pros::delay(350);
+    }
+    else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT) && intake_stat % 2 != 0){
+        pneu_intake.set_value(false);
+        intake_stat++;
         pros::delay(350);
     }
 }
