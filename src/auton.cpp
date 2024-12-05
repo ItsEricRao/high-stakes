@@ -47,8 +47,8 @@ void blue_r() {
     base.move_relative(-1.5, 200);
     pros::delay(400);
     
-    auto_lock();  // 自动锁定，不做修改
-    chassis.setPose(0, 0, 0);  // 保持初始位置不变
+    auto_lock();
+    chassis.setPose(0, 0, 0);
     auto_intake(false);
     chassis.moveToPose(-17,-15,0,1000);
     chassis.moveToPose(-17, -32, -90, 2000);
