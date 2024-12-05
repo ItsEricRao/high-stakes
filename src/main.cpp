@@ -4,6 +4,7 @@
 #include "logo.h"
 #include "func.h"
 #include "io.h"
+#include "auton.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -13,6 +14,7 @@
  */
 pros::MotorGroup left_motors({-10, -9, 8}, pros::MotorGearset::blue);
 pros::MotorGroup right_motors({20, 19, -18}, pros::MotorGearset::blue);
+pros::MotorGroup base({-10, -9, 8, 20, 19, -18}, pros::MotorGearset::blue);
 pros::Motor intake(-17, pros::MotorGearset::green);
 pros::Motor track(-15, pros::MotorGearset::green);
 pros::Motor arm(1, pros::MotorGearset::red);
@@ -69,18 +71,10 @@ lemlib::Chassis chassis(drivetrain, // drivetrain settings
 						sensors
 );
 
-ASSET(a1_txt);
-// ASSET(a2_txt);
-
-void test() {}
-void auton() {
-	
-}
-// rd::Selector selector({
-//     {"AWP + 7pts", auton},
-//     {"Test", test},
-// });
-// rd::Console console;
+rd::Selector selector({
+    {"Red Left", red_l},
+    {"Blue Right", blue_r}
+});
 
 void display_logo() {
   rd_view_t *view = rd_view_create("Image");
@@ -97,6 +91,7 @@ void display_logo() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+
     imu.reset();
     chassis.calibrate();
     chassis.setPose(0,0,0);
@@ -144,34 +139,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-    // chassis.moveToPose(-5,0,0,1000);
-    // pros::delay(500);
-    // arm.set_zero_position(310);
-    // pros::delay(100);
-    // arm.move_absolute(1750, 100);
-    // pros::delay(1000);
-    // chassis.setPose(-60.144, -9.329, 81.81);
-    // chassis.follow(a1_txt, 30, 500, false);
-    // pros::delay(1000);
-    // arm.move_absolute(0, 100);
-    // pros::delay(1000);
-    // auto_lock();
-    // chassis.setPose(0, 0, 0);
-    // pros::delay(500);
-    // auto_intake(false);
-    // chassis.moveToPose(-30, -15, -90, 2000, {.minSpeed = 60});
-    // pros::delay(2000);
-    // chassis.moveToPose(0,-50,225, 2000);
-    chassis.setPose(0,0,0);
-    chassis.moveToPose(0,0,35,1000);
-    arm.set_zero_position(310);
-    pros::delay(100);
-    arm.move_absolute(1750,100);
-    pros::delay(1000);
-    chassis.moveToPose(-5,-5,35,1000);
-    pros::delay(1000);
-    arm.move_absolute(0,100);
-    chassis.moveToPose(-25,-30,90, 4000);   
+    selector.run_auton();
 }
 
 /**
