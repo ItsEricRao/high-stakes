@@ -73,7 +73,8 @@ lemlib::Chassis chassis(drivetrain, // drivetrain settings
 
 rd::Selector selector({
     {"Red Left", red_l},
-    {"Blue Right", blue_r}
+    {"Blue Right", blue_r},
+    {"Special", spc}
 });
 
 void display_logo() {
@@ -102,7 +103,7 @@ void initialize() {
     pros::Task screenTask([&]() {
         while (true) {
             auto pose = chassis.getPose();
-            printf("X: %f, Y: %f, Theta: %f, IMU: %f\n", pose.x, pose.y, pose.theta, imu.get_rotation());
+            printf("X: %f, Y: %f, Theta: %f, IMU: %f, arm: %f\n", pose.x, pose.y, pose.theta, imu.get_rotation(), arm.get_position());
             // delay to save resources
             pros::delay(50);
         }
